@@ -1,0 +1,25 @@
+{
+	"name": "wildfire",
+	"title": "Wildfire",
+	"description": "Manage and automate fire spreading and ignition.",
+	"author": "zeel",
+	"version": "0.0.0",
+	"minimumCoreVersion": "0.7.3",
+	"compatibleCoreVersion": "0.7.4",
+	"scripts": [
+		"wildfire.js"
+	],
+	"styles": [
+		"wildfire.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"manifest": "https://raw.githubusercontent.com/zeel01/Wildfire/master/module.json",
+	"url": "https://github.com/zeel01/Wildfire",
+	"download": "https://github.com/zeel01/Wildfire/releases/download/v0.0.0/wildfire.zip"
+}
