@@ -110,12 +110,6 @@ class Wildfire {
 	 */
 	static getNeighbors([row, col]) { return canvas.grid.grid.getNeighbors(row, col); }
 
-
-	getNotBuring(newFires, neighbors) {
-		const fires = this.fires.concat(newFires);
-		return neighbors.filter(c => this.isBurning(c, fires));
-	}
-
 	/**
 	 * Checks whether or not the cell is already on fire.
 	 *
