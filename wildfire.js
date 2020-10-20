@@ -299,6 +299,26 @@ class Wildfire {
 }
 
 async function spreadFire() {
-	const fire = await Wildfire.createWildfire(token, "1d6", 1);
+	const fire = await Wildfire.createWildfire(_token, "1d6", 1);
 	fire.spread();
 }
+
+Hooks.on("getSceneControlButtons", (layers) => {
+	console.log(layers);
+
+	layers.find(l => l.name == "token").tools.push({
+		icon: "fas fa-fire",
+		name: "firespread",
+		title: "wildfire.title",
+		button: true,
+		onClick: () => spreadFire()
+	});
+
+	layers.find(l => l.name == "drawings").tools.push({
+		icon: "fas fa-tree",
+		name: "setflammable",
+		title: "wildfire.title",
+		button: true,
+		onClick: () => Wildfire.setFlamableDrawings()
+	});
+})
