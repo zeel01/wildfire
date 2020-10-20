@@ -166,6 +166,18 @@ class Wildfire {
 	}
 
 	/**
+	 * Check whether or not the space is inside a drawing
+	 * that has a flamable flag set to true.
+	 *
+	 * @param {[number, number]} cell - The [row, col] location of this cell on the grid
+	 * @return {Boolean} True if the cell is in a drawing flagged as flamable
+	 * @memberof Wildfire
+	 */
+	isInFlamableArea(cell) {
+		return this.flamableAreas.some(area => this.areaContains(area, cell));
+	}
+
+	/**
 	 * Tests whether or not the area of a drawing and the area of a cell
 	 * overlap, if so the cell is considered to be within the flamable
 	 * area of the drawing.
@@ -194,6 +206,7 @@ class Wildfire {
 			tl2.y <= br1.y    // - Cell is completely under the drawing
 		);
 	}
+
 	/**
 	* Checks whether or not the cell can be set on fire.
 	*
