@@ -215,9 +215,10 @@ class Wildfire {
 	* @memberof Wildfire
 	*/
 	isFlamable(cell) {
-		if (this.isBurning(cell)) return false;
-
-		return true;
+		return (
+			!this.isBurning(cell)         &&
+			 this.isInFlamableArea(cell)
+		);
 	}
 
 	/**
