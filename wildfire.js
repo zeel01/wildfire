@@ -62,6 +62,21 @@ class Wildfire {
 	}
 
 	/**
+	 * Sets a flamable flag on all selected drawings 
+	 *
+	 * @static
+	 * @return {Array<object>} And array of data ojects of updated data
+	 * @memberof Wildfire
+	 */
+	static async setFlamableDrawings() {
+		const drawings = canvas.drawings.controlled;
+		if (drawings.length < 1) return;
+
+		const data = drawings.map(d => ({ "_id": d.id, "flags.wildfire.flamable": true }));
+		return await canvas.drawings.updateMany(data);
+	}
+
+	/**
 	 * A copy of the data for a Token to be used
 	 * as a representative of Fire.
 	 * 
