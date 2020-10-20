@@ -215,7 +215,7 @@ class Wildfire {
 }
 
 async function spreadFire() {
-	new Wildfire(_token).spread({
+	await new Wildfire(_token).spread({
 		formula: "1d8",
 		success: 8
 	});
