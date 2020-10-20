@@ -46,6 +46,22 @@ class Wildfire {
 	static getNeighbors([row, col]) { return canvas.grid.grid.getNeighbors(row, col); }
 
 	/**
+	 * Return a new Wildfire based on a source token that
+	 * will have a special Wildfire flag set.
+	 *
+	 * @static
+	 * @param {Token} source - The token to base the rest of the fire off of
+	 * @param {string} formula - The roll formula for fire spreading
+	 * @param {number} target - The target result for the formula
+	 * @return {Wildfire} The new instance of Wildfire 
+	 * @memberof Wildfire
+	 */
+	static async createWildfire(source, formula, target) {
+		await source.setFlag("wildfire", "fire", true);
+		return new Wildfire(source, { formula, target });
+	}
+
+	/**
 	 * A copy of the data for a Token to be used
 	 * as a representative of Fire.
 	 * 
@@ -63,9 +79,11 @@ class Wildfire {
 	 *
 	 * @memberof Wildfire
 	 * @param {Token} prototype - A token to use as the prototype for all new fires
+	 * @param {Chance} chance - A cahnce object defining the default chance of spreading for this Wildfire
 	 */
-	constructor(prototype) {
+	constructor(prototype, chance={ formula: "1d1", success: "1"}) {
 		this.token = prototype;
+		this.chance = chance;
 
 		/**
 		 * An array of new fires that have not yet been added to the scene as tokens
@@ -189,7 +207,7 @@ class Wildfire {
 	 * @return {Promise<void>} A Promise that fullfills once the spreading operation is complete
 	 * @memberof Wildfire
 	 */
-	async spread(chance) {
+	async spread(chance=this.chance) {
 		if (this.spreading) return;
 		this.spreading = true;
 		this.realFires.forEach(fire => this.spreadToNeighbors(fire, chance));
