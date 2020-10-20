@@ -188,7 +188,7 @@ class Wildfire {
 	 * @memberof Wildfire
 	 */
 	areaContains(area, cell) {
-		const [cx, cy] = this.getPixelPos(cell);
+		const [cx, cy] = Wildfire.getPixelPos(cell);
 
 		// Top left of drawing
 		const tl1 = { x: area.x, y: area.y };
