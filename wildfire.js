@@ -3,7 +3,7 @@
  *
  * @typedef Chance
  * @property {string} formula - The Roll formula for this chance
- * @property {number} success - The roll is considered a sucess if the result is this number or higher
+ * @property {number} target - The roll is considered a sucess if the result is this number or higher
  */
 
 /**
@@ -81,7 +81,7 @@ class Wildfire {
 	 * @param {Token} prototype - A token to use as the prototype for all new fires
 	 * @param {Chance} chance - A cahnce object defining the default chance of spreading for this Wildfire
 	 */
-	constructor(prototype, chance={ formula: "1d1", success: "1"}) {
+	constructor(prototype, chance={ formula: "1d1", target: "1"}) {
 		this.token = prototype;
 		this.chance = chance;
 
@@ -180,7 +180,7 @@ class Wildfire {
 	 */
 	spreadToCell(cell, chance) {
 		if (!this.isFlamable(cell)) return;
-		if (new Roll(chance.formula).roll().total < chance.success) return;
+		if (new Roll(chance.formula).roll().total < chance.target) return;
 
 		this.light(cell);
 	}
@@ -235,6 +235,6 @@ class Wildfire {
 async function spreadFire() {
 	await new Wildfire(_token).spread({
 		formula: "1d8",
-		success: 8
+		target: 8
 	});
 }
