@@ -166,6 +166,35 @@ class Wildfire {
 	}
 
 	/**
+	 * Tests whether or not the area of a drawing and the area of a cell
+	 * overlap, if so the cell is considered to be within the flamable
+	 * area of the drawing.
+	 *
+	 * @param {Drawing} area - The flamable drawing
+	 * @param {[number, number]} cell - The [row, col] location of this cell on the grid
+	 * @return {Boolean} True if the area defined by the drawing contains the cell 
+	 * @memberof Wildfire
+	 */
+	areaContains(area, cell) {
+		const [cx, cy] = this.getPixelPos(cell);
+
+		// Top left of drawing
+		const tl1 = { x: area.x, y: area.y };
+		// Top left of cell
+		const tl2 = { x: cx, y: cy };
+		// Bottom right of drawing
+		const br1 = { x: tl1.x + area.width, y: tl1.y + area.height };
+		// Bottom right of cell
+		const br2 = { x: tl2.x + this.gridSize, y: tl2.y + this.gridSize };
+
+		return !(             // Return true if none of the following are true
+			tl1.x >= br2.x || // - Drawing is completely to the right of the cell
+			tl2.x >= br1.x || // - Cell is completely to the right of the drawing
+			tl1.y <= br2.y || // - Drawing is completely under the cell
+			tl2.y <= br1.y    // - Cell is completely under the drawing
+		);
+	}
+	/**
 	* Checks whether or not the cell can be set on fire.
 	*
 	* @param {[number, number]} cell - The [row, col] location of this cell on the grid
