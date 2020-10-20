@@ -299,8 +299,6 @@ class Wildfire {
 }
 
 async function spreadFire() {
-	await new Wildfire(_token).spread({
-		formula: "1d8",
-		target: 8
-	});
+	const fire = await Wildfire.createWildfire(token, "1d6", 1);
+	fire.spread();
 }
