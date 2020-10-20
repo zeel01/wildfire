@@ -109,7 +109,7 @@ class Wildfire {
 	 * @readonly
 	 * @type {Token[]}
 	 */
-	get realFires() { return canvas.tokens.objects.children.filter(t => t.data.name == "Fire"); }
+	get realFires() { return canvas.tokens.objects.children.filter(t => t.data.flags?.wildfire?.fire); }
 
 	/**
 	 * An array of all fires, both real Tokens and newFires
