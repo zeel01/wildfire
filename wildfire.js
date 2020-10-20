@@ -136,6 +136,15 @@ class Wildfire {
 	get fires() { return this.realFires.concat(this.newFires); }
 
 	/**
+	 * An array of all drawings with the flamable flag set to true.
+	 *
+	 * @readonly
+	 * @memberof Wildfire
+	 * @type {Drawing[]}
+	 */
+	get flamableAreas() { return canvas.drawings.objects.children.filter(d => d.data.flags?.wildfire?.flamable); }
+
+	/**
 	 * The width in pixels of a grid space
 	 *
 	 * @readonly
