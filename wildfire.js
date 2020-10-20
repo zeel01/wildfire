@@ -202,8 +202,8 @@ class Wildfire {
 		return !(             // Return true if none of the following are true
 			tl1.x >= br2.x || // - Drawing is completely to the right of the cell
 			tl2.x >= br1.x || // - Cell is completely to the right of the drawing
-			tl1.y <= br2.y || // - Drawing is completely under the cell
-			tl2.y <= br1.y    // - Cell is completely under the drawing
+			tl1.y >= br2.y || // - Drawing is completely above the cell
+			tl2.y >= br1.y    // - Cell is completely above the drawing
 		);
 	}
 
