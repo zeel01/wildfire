@@ -14,6 +14,38 @@
  */
 class Wildfire {
 	/**
+	 * Retrieves the grid position [row, col] that a given
+	 * point [x, y] is within.
+	 *
+	 * @static
+	 * @param {[number, number]} position - The [x, y] position of the point
+	 * @return {[number, number]} The [row, col] of the grid position.
+	 * @memberof Wildfire
+	 */
+	static getGridPos([x, y]) { return canvas.grid.grid.getGridPositionFromPixels(x, y); }
+	
+	/**
+	 * Retrieves the pixel position [x, y] of the upper left
+	 * corner of a grid position [row, col]
+	 *
+	 * @static
+	 * @param {[number, number]} position - The [row, col] position of the grid space
+	 * @return {[number, number]} The [x, y] coordinates of the point at the top-left of the space
+	 * @memberof Wildfire
+	 */
+	static getPixelPos([row, col]) { return canvas.grid.grid.getPixelsFromGridPosition(row, col); }
+
+	/**
+	 * Retrieve an array of cells that are adjacent to the one specified
+	 *
+	 * @static
+	 * @param {[number, number]} postion - The [row, col] position of the cell
+	 * @return {[number, number][]} An array of [row, col] pairs refering to the locations of all adjacent cells.
+	 * @memberof Wildfire
+	 */
+	static getNeighbors([row, col]) { return canvas.grid.grid.getNeighbors(row, col); }
+
+	/**
 	 * A copy of the data for a Token to be used
 	 * as a representative of Fire.
 	 * 
@@ -77,38 +109,6 @@ class Wildfire {
 	 * @memberof Wildfire
 	 */
 	get gridSize() { return canvas.grid.grid.w; }
-
-	/**
-	 * Retrieves the grid position [row, col] that a given
-	 * point [x, y] is within.
-	 *
-	 * @static
-	 * @param {[number, number]} position - The [x, y] position of the point
-	 * @return {[number, number]} The [row, col] of the grid position.
-	 * @memberof Wildfire
-	 */
-	static getGridPos([x, y]) { return canvas.grid.grid.getGridPositionFromPixels(x, y); }
-	
-	/**
-	 * Retrieves the pixel position [x, y] of the upper left
-	 * corner of a grid position [row, col]
-	 *
-	 * @static
-	 * @param {[number, number]} position - The [row, col] position of the grid space
-	 * @return {[number, number]} The [x, y] coordinates of the point at the top-left of the space
-	 * @memberof Wildfire
-	 */
-	static getPixelPos([row, col]) { return canvas.grid.grid.getPixelsFromGridPosition(row, col); }
-
-	/**
-	 * Retrieve an array of cells that are adjacent to the one specified
-	 *
-	 * @static
-	 * @param {[number, number]} postion - The [row, col] position of the cell
-	 * @return {[number, number][]} An array of [row, col] pairs refering to the locations of all adjacent cells.
-	 * @memberof Wildfire
-	 */
-	static getNeighbors([row, col]) { return canvas.grid.grid.getNeighbors(row, col); }
 
 	/**
 	 * Checks whether or not the cell is already on fire.
