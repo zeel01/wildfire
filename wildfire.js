@@ -161,8 +161,7 @@ class Wildfire {
 	 */
 	isBurning(cell) {
 		const [x, y] = Wildfire.getPixelPos(cell);
-		const box = new PIXI.Rectangle(x, y, this.gridSize, this.gridSize);
-		return this.fires.some(t => box.contains(t.x, t.y))
+		return this.fires.some(t => t.x == x && t.y == y);
 	}
 
 	/**
