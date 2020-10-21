@@ -323,7 +323,7 @@ Hooks.on("getSceneControlButtons", (layers) => {
 		name: "firespread",
 		title: "wildfire.title",
 		button: true,
-		onClick: () => spreadFire()
+		onClick: () => Wildfire.createWildfire(_token, "1d6", 1)
 	});
 
 	layers.find(l => l.name == "drawings").tools.push({
