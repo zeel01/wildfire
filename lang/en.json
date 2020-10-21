@@ -5,6 +5,7 @@
 			"noSelectedDrawings": "You must select at least one drawing first.",
 			"noSelectedToken": "You must select a Token first.",
 			"setDrawingsFlammable": "Set {n} drawing(s) as flammable.",
+			"createdFires": "Lit {n} new fires.",
 			"addedWildfire": "Added fire to combat tracker."
 		}
 	}

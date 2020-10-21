@@ -319,6 +319,7 @@ class Wildfire {
 	 */
 	async createNewFires() {
 		await canvas.tokens.createMany(this.newFires);
+		ui.notifications.notify(game.i18n.format("wildfire.notifications.createdFires", { n: this.newFires.length }));
 		this.newFires = [];
 
 		return;
