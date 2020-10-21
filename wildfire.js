@@ -333,15 +333,7 @@ async function spreadFire() {
 
 Hooks.on("getSceneControlButtons", (layers) => {
 	console.log(layers);
-
-	layers.find(l => l.name == "token").tools.push({
-		icon: "fas fa-fire",
-		name: "firespread",
-		title: "wildfire.title",
-		button: true,
-		onClick: () => Wildfire.onCreateButtonClick()
-	});
-
+	
 	layers.find(l => l.name == "drawings").tools.push({
 		icon: "fas fa-tree",
 		name: "setflammable",
@@ -356,4 +348,16 @@ Hooks.on("updateCombat", (combat) => {
 		if (!game.wildfires) return;
 		game.wildfires.forEach(fire => fire.spread());
 	}
+})
+
+Hooks.on("renderCombatTracker", (tracker, html) => {
+	if (!tracker.combat) return;
+
+	const button = $(`
+		<a class="combat-control" title="${game.i18n.localize("wildfire.tooltips.addWildfire")}">
+			<i class="fas fa-fire"></i>
+		</a>
+	`).click((event) => Wildfire.onCreateButtonClick());
+
+	html.find("#combat-round [data-control=rollNPC]").after(button)
 })
