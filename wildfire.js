@@ -58,7 +58,15 @@ class Wildfire {
 	 */
 	static async createWildfire(source, formula, target) {
 		await source.setFlag("wildfire", "fire", true);
-		return new Wildfire(source, { formula, target });
+		const fire = new Wildfire(source, { formula, target });
+		const combatant = game.combats.active.createCombatant({ 
+			"flags.wildfire.fire": true,
+			"img": source.data.img,
+			"name": source.data.name
+		});
+		fire.combatant = combatant;
+
+		return fire;
 	}
 
 	/**
@@ -190,7 +198,7 @@ class Wildfire {
 		const [cx, cy] = Wildfire.getPixelPos(cell);
 
 		// Top left of drawing
-		const tl1 = { x: area.x, y: area.y };
+		const tl1 = { x: area.data.x, y: area.data.y };
 		// Top left of cell
 		const tl2 = { x: cx, y: cy };
 		// Bottom right of drawing
@@ -322,3 +330,5 @@ Hooks.on("getSceneControlButtons", (layers) => {
 		onClick: () => Wildfire.setFlammableDrawings()
 	});
 })
+
+Hooks.on("updateCombat", )
