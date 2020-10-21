@@ -64,6 +64,10 @@ class Wildfire {
 			"img": source.data.img,
 			"name": source.data.name
 		});
+
+		if (!game.wildfires) game.wildfires = [];
+
+		game.wildfires.push(fire);
 		fire.combatant = combatant;
 
 		return fire;
@@ -331,4 +335,8 @@ Hooks.on("getSceneControlButtons", (layers) => {
 	});
 })
 
-Hooks.on("updateCombat", )
+Hooks.on("updateCombat", (combat) => {
+	if (combat.combatant.flags?.wildfire?.fire) {
+		game.wildfires.forEach(fire => fire.spread());
+	}
+})
