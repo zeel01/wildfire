@@ -73,6 +73,17 @@ class Wildfire {
 		return fire;
 	}
 
+	static async onCreateButtonClick() {
+		if (canvas.tokens.controlled.length < 1) {
+			ui.notifications.warn(game.i18n.localize("wildfire.notifications.noSelectedToken"));
+			return;
+		}
+
+		ui.notifications.notify(game.i18n.localize("wildfire.notifications.addedWildfire"));
+		
+		Wildfire.createWildfire(canvas.tokens.controlled[0], "1d6", 1);
+	}
+
 	/**
 	 * Sets a flammable flag on all selected drawings 
 	 *
@@ -82,9 +93,13 @@ class Wildfire {
 	 */
 	static async setFlammableDrawings() {
 		const drawings = canvas.drawings.controlled;
-		if (drawings.length < 1) return;
+		if (drawings.length < 1) {
+			ui.notifications.warn(game.i18n.localize("wildfire.notifications.noSelectedDrawings"));
+			return;
+		}
 
 		const data = drawings.map(d => ({ "_id": d.id, "flags.wildfire.flammable": true }));
+		ui.notifications.notify(game.i18n.format("wildfire.notifications.setDrawingsFlammable", { n: data.length }));
 		return await canvas.drawings.updateMany(data);
 	}
 
@@ -323,7 +338,7 @@ Hooks.on("getSceneControlButtons", (layers) => {
 		name: "firespread",
 		title: "wildfire.title",
 		button: true,
-		onClick: () => Wildfire.createWildfire(_token, "1d6", 1)
+		onClick: () => Wildfire.onCreateButtonClick()
 	});
 
 	layers.find(l => l.name == "drawings").tools.push({

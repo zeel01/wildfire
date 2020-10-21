@@ -1,5 +1,11 @@
 {
 	"wildfire": {
-		"title": "Wildfire"
+		"title": "Wildfire",
+		"notifications": {
+			"noSelectedDrawings": "You must select at least one drawing first.",
+			"noSelectedToken": "You must select a Token first.",
+			"setDrawingsFlammable": "Set {n} drawing(s) as flammable.",
+			"addedWildfire": "Added fire to combat tracker."
+		}
 	}
 }
