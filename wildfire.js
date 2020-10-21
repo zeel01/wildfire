@@ -353,6 +353,7 @@ Hooks.on("getSceneControlButtons", (layers) => {
 
 Hooks.on("updateCombat", (combat) => {
 	if (combat.combatant.flags?.wildfire?.fire) {
+		if (!game.wildfires) return;
 		game.wildfires.forEach(fire => fire.spread());
 	}
 })
