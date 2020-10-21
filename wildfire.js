@@ -62,17 +62,17 @@ class Wildfire {
 	}
 
 	/**
-	 * Sets a flamable flag on all selected drawings 
+	 * Sets a flammable flag on all selected drawings 
 	 *
 	 * @static
 	 * @return {Array<object>} And array of data ojects of updated data
 	 * @memberof Wildfire
 	 */
-	static async setFlamableDrawings() {
+	static async setFlammableDrawings() {
 		const drawings = canvas.drawings.controlled;
 		if (drawings.length < 1) return;
 
-		const data = drawings.map(d => ({ "_id": d.id, "flags.wildfire.flamable": true }));
+		const data = drawings.map(d => ({ "_id": d.id, "flags.wildfire.flammable": true }));
 		return await canvas.drawings.updateMany(data);
 	}
 
@@ -136,13 +136,13 @@ class Wildfire {
 	get fires() { return this.realFires.concat(this.newFires); }
 
 	/**
-	 * An array of all drawings with the flamable flag set to true.
+	 * An array of all drawings with the flammable flag set to true.
 	 *
 	 * @readonly
 	 * @memberof Wildfire
 	 * @type {Drawing[]}
 	 */
-	get flamableAreas() { return canvas.drawings.objects.children.filter(d => d.data.flags?.wildfire?.flamable); }
+	get flammableAreas() { return canvas.drawings.objects.children.filter(d => d.data.flags?.wildfire?.flammable); }
 
 	/**
 	 * The width in pixels of a grid space
@@ -166,22 +166,22 @@ class Wildfire {
 
 	/**
 	 * Check whether or not the space is inside a drawing
-	 * that has a flamable flag set to true.
+	 * that has a flammable flag set to true.
 	 *
 	 * @param {[number, number]} cell - The [row, col] location of this cell on the grid
-	 * @return {Boolean} True if the cell is in a drawing flagged as flamable
+	 * @return {Boolean} True if the cell is in a drawing flagged as flammable
 	 * @memberof Wildfire
 	 */
-	isInFlamableArea(cell) {
-		return this.flamableAreas.some(area => this.areaContains(area, cell));
+	isInFlammableArea(cell) {
+		return this.flammableAreas.some(area => this.areaContains(area, cell));
 	}
 
 	/**
 	 * Tests whether or not the area of a drawing and the area of a cell
-	 * overlap, if so the cell is considered to be within the flamable
+	 * overlap, if so the cell is considered to be within the flammable
 	 * area of the drawing.
 	 *
-	 * @param {Drawing} area - The flamable drawing
+	 * @param {Drawing} area - The flammable drawing
 	 * @param {[number, number]} cell - The [row, col] location of this cell on the grid
 	 * @return {Boolean} True if the area defined by the drawing contains the cell 
 	 * @memberof Wildfire
@@ -213,10 +213,10 @@ class Wildfire {
 	* @return {Boolean} True if the cell can be set on fire
 	* @memberof Wildfire
 	*/
-	isFlamable(cell) {
+	isFlammable(cell) {
 		return (
 			!this.isBurning(cell)         &&
-			 this.isInFlamableArea(cell)
+			 this.isInFlammableArea(cell)
 		);
 	}
 
@@ -245,7 +245,7 @@ class Wildfire {
 	 * @memberof Wildfire
 	 */
 	spreadToCell(cell, chance) {
-		if (!this.isFlamable(cell)) return;
+		if (!this.isFlammable(cell)) return;
 		if (new Roll(chance.formula).roll().total < chance.target) return;
 
 		this.light(cell);
@@ -319,6 +319,6 @@ Hooks.on("getSceneControlButtons", (layers) => {
 		name: "setflammable",
 		title: "wildfire.title",
 		button: true,
-		onClick: () => Wildfire.setFlamableDrawings()
+		onClick: () => Wildfire.setFlammableDrawings()
 	});
 })
