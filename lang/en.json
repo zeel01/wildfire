@@ -6,7 +6,10 @@
 			"noSelectedToken": "You must select a Token first.",
 			"setDrawingsFlammable": "Set {n} drawing(s) as flammable.",
 			"createdFires": "Lit {n} new fires.",
-			"addedWildfire": "Added fire to combat tracker."
+			"addedWildfire": "Added wildfire to combat tracker."
+		},
+		"tooltips": {
+			"addWildfire": "Add new wildfire to tracker"
 		}
 	}
 }
