@@ -344,16 +344,27 @@ class Wildfire {
 			onClick: () => this.setFlammableDrawings()
 		});
 	}
+
+	/**
+	 * Hanldes the updateCombat Hook
+	 *
+	 * On the turn of a fire combatant, trigger the sprading of the flame.
+	 *
+	 * @static
+	 * @param {Combat} combat - The Combat entity representing the current combat.
+	 * @return {void} Return early if game.wildfires doesn't exist 
+	 * @memberof Wildfire
+	 */
+	static handleUIpdateCombat(combat) {
+		if (combat.combatant.flags?.wildfire?.fire) {
+			if (!game.wildfires) return;
+			game.wildfires.forEach(fire => fire.spread());
+		}
+	}
 }
 
 Hooks.on("getSceneControlButtons", (...args) => Wildfire.handleGetSceneContrlButtons(...args));
-
-Hooks.on("updateCombat", (combat) => {
-	if (combat.combatant.flags?.wildfire?.fire) {
-		if (!game.wildfires) return;
-		game.wildfires.forEach(fire => fire.spread());
-	}
-})
+Hooks.on("updateCombat", (...args) => Wildfire.handleUIpdateCombat(...args));
 
 Hooks.on("renderCombatTracker", (tracker, html) => {
 	if (!tracker.combat) return;
