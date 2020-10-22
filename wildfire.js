@@ -386,8 +386,42 @@ class Wildfire {
 
 		html.find("#combat-round [data-control=rollNPC]").after(button);
 	}
+
+	/**
+	 * Handles the renderCombatantConfig Hook
+	 *
+	 * When the combatant config sheet is rendered, and the combatant is a fire
+	 * add input fields for the formula and target.
+	 *
+	 * @static
+	 * @param {CombatantConfig} config - The instance of the combatant config application
+	 * @param {jQuery} html - The HTML DOM elements of the application
+	 * @return {void} Return early if this combatant isn't a fire 
+	 * @memberof Wildfire
+	 */
+	static handleRenderCombatantConfig(config, html) {
+		if (!config.object.flags?.wildfire?.fire) return;
+
+		const inputs = $(`
+			<div class="form-group">
+				<label>${game.i18n.localize("wildfire.formLabels.formula")}</label>
+				<div class="form-fields">
+					<input type="text" name="flags.wildfire.formula" value="${config.object.flags.wildfire.formula}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label>${game.i18n.localize("wildfire.formLabels.target")}</label>
+				<div class="form-fields">
+					<input type="number" name="flags.wildfire.target" value="${config.object.flags.wildfire.target}" step="any">
+				</div>
+			</div>
+		`);
+
+		html.find("footer").before(inputs);
+	}
 }
 
 Hooks.on("getSceneControlButtons", (...args) => Wildfire.handleGetSceneContrlButtons(...args));
 Hooks.on("updateCombat", (...args) => Wildfire.handleUIpdateCombat(...args));
 Hooks.on("renderCombatTracker", (...args) => Wildfire.handleRenderCombatTracker(...args));
+Hooks.on("renderCombatantConfig", (...args) => Wildfire.handleRenderCombatantConfig(...args));
