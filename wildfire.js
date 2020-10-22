@@ -324,19 +324,29 @@ class Wildfire {
 
 		return;
 	}
+
+	/**
+	 * Handles the getSceneControlButtons Hook
+	 * 
+	 * Adds a button to the control pallet of the drawing layer
+	 * this button flags all selected drawings as flammable.
+	 *
+	 * @static
+	 * @param {Object[]} controlLayers - An array of objects defining the controls for each canvas layer
+	 * @memberof Wildfire
+	 */
+	static handleGetSceneContrlButtons(controlLayers) {
+		controlLayers.find(l => l.name == "drawings").tools.push({
+			icon: "fas fa-tree",
+			name: "markflammable",
+			title: "wildfire.tooltips.markFlammable",
+			button: true,
+			onClick: () => this.setFlammableDrawings()
+		});
+	}
 }
 
-Hooks.on("getSceneControlButtons", (layers) => {
-	console.log(layers);
-
-	layers.find(l => l.name == "drawings").tools.push({
-		icon: "fas fa-tree",
-		name: "setflammable",
-		title: "wildfire.title",
-		button: true,
-		onClick: () => Wildfire.setFlammableDrawings()
-	});
-})
+Hooks.on("getSceneControlButtons", (...args) => Wildfire.handleGetSceneContrlButtons(...args));
 
 Hooks.on("updateCombat", (combat) => {
 	if (combat.combatant.flags?.wildfire?.fire) {
