@@ -1,3 +1,4 @@
+# Wildfire
 This module provides a means to automate the spreading of fires or other similar environmental hazards. Fires, strange oozes, fungal growth, millions of tiny spiders, lava, whatever you can imagine!
 
 ## Usage
