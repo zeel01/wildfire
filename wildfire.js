@@ -355,10 +355,14 @@ class Wildfire {
 	 * @return {void} Return early if game.wildfires doesn't exist 
 	 * @memberof Wildfire
 	 */
-	static handleUIpdateCombat(combat) {
-		if (combat.combatant.flags?.wildfire?.fire) {
+	static handleUpdateCombat(combat) {
+		const combatant = combat.combatant;
+		if (combatant.flags?.wildfire?.fire) {
 			if (!game.wildfires) return;
-			game.wildfires.forEach(fire => fire.spread());
+			game.wildfires.forEach(fire => fire.spread({
+				formula: combatant.flags.wildfire.formula || "1d8",
+				target: parseInt(combatant.flags.wildfire.target, 10) || 5
+			}));
 		}
 	}
 
@@ -422,6 +426,6 @@ class Wildfire {
 }
 
 Hooks.on("getSceneControlButtons", (...args) => Wildfire.handleGetSceneContrlButtons(...args));
-Hooks.on("updateCombat", (...args) => Wildfire.handleUIpdateCombat(...args));
+Hooks.on("updateCombat", (...args) => Wildfire.handleUpdateCombat(...args));
 Hooks.on("renderCombatTracker", (...args) => Wildfire.handleRenderCombatTracker(...args));
 Hooks.on("renderCombatantConfig", (...args) => Wildfire.handleRenderCombatantConfig(...args));
