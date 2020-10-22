@@ -11,6 +11,10 @@
 		"tooltips": {
 			"addWildfire": "Add new wildfire to tracker",
 			"markFlammable": "Mark drawings as flammable"
+		},
+		"formLabels" : {
+			"formula": "Fire spread formula",
+			"target": "Spread formula target"
 		}
 	}
 }
