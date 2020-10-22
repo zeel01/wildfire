@@ -9,7 +9,8 @@
 			"addedWildfire": "Added wildfire to combat tracker."
 		},
 		"tooltips": {
-			"addWildfire": "Add new wildfire to tracker"
+			"addWildfire": "Add new wildfire to tracker",
+			"markFlammable": "Mark drawings as flammable"
 		}
 	}
 }
