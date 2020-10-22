@@ -361,19 +361,33 @@ class Wildfire {
 			game.wildfires.forEach(fire => fire.spread());
 		}
 	}
+
+	/**
+	 * Handles the renderCombatTracker Hook
+	 * 
+	 * When the combat tracker renders, this method inserts
+	 * an additional control which is used to add a wildfire
+	 * to the tracker based on the currently selected token.
+	 *
+	 * @static
+	 * @param {CombatTracker} tracker - The CombatTracker entity
+	 * @param {jQuery} html - The HTML DOM elements of the tracker
+	 * @return {void} Returns early if the tracker doesn't have an active combat.
+	 * @memberof Wildfire
+	 */
+	static handleRenderCombatTracker(tracker, html) {
+		if (!tracker.combat) return;
+
+		const button = $(`
+			<a class="combat-control" title="${game.i18n.localize("wildfire.tooltips.addWildfire")}">
+				<i class="fas fa-fire"></i>
+			</a>
+		`).click((event) => Wildfire.onCreateButtonClick());
+
+		html.find("#combat-round [data-control=rollNPC]").after(button);
+	}
 }
 
 Hooks.on("getSceneControlButtons", (...args) => Wildfire.handleGetSceneContrlButtons(...args));
 Hooks.on("updateCombat", (...args) => Wildfire.handleUIpdateCombat(...args));
-
-Hooks.on("renderCombatTracker", (tracker, html) => {
-	if (!tracker.combat) return;
-
-	const button = $(`
-		<a class="combat-control" title="${game.i18n.localize("wildfire.tooltips.addWildfire")}">
-			<i class="fas fa-fire"></i>
-		</a>
-	`).click((event) => Wildfire.onCreateButtonClick());
-
-	html.find("#combat-round [data-control=rollNPC]").after(button)
-})
+Hooks.on("renderCombatTracker", (...args) => Wildfire.handleRenderCombatTracker(...args));
