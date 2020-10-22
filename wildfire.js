@@ -123,7 +123,7 @@ class Wildfire {
 	 * @param {Token} prototype - A token to use as the prototype for all new fires
 	 * @param {Chance} chance - A cahnce object defining the default chance of spreading for this Wildfire
 	 */
-	constructor(prototype, chance={ formula: "1d1", target: "1"}) {
+	constructor(prototype, chance={ formula: "1d8", target: 5}) {
 		this.token = prototype;
 		this.chance = chance;
 
@@ -406,13 +406,13 @@ class Wildfire {
 			<div class="form-group">
 				<label>${game.i18n.localize("wildfire.formLabels.formula")}</label>
 				<div class="form-fields">
-					<input type="text" name="flags.wildfire.formula" value="${config.object.flags.wildfire.formula}">
+					<input type="text" name="flags.wildfire.formula" value="${config.object.flags.wildfire.formula || "1d8"}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label>${game.i18n.localize("wildfire.formLabels.target")}</label>
 				<div class="form-fields">
-					<input type="number" name="flags.wildfire.target" value="${config.object.flags.wildfire.target}" step="any">
+					<input type="number" name="flags.wildfire.target" value="${config.object.flags.wildfire.target || "5"}" step="any">
 				</div>
 			</div>
 		`);
