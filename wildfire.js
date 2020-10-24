@@ -357,7 +357,7 @@ class Wildfire {
 	 */
 	static handleUpdateCombat(combat) {
 		const combatant = combat.combatant;
-		if (combatant.flags?.wildfire?.fire) {
+		if (combatant?.flags?.wildfire?.fire) {
 			if (!game.wildfires) return;
 			game.wildfires.forEach(fire => fire.spread({
 				formula: combatant.flags.wildfire.formula || "1d8",
